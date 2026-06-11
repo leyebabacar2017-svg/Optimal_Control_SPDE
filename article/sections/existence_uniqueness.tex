@@ -24,7 +24,7 @@ y_0\in L^2(\Omega;H);
 \]
 \item the control satisfies
 \[
-u\in L^2\bigl(\Omega;L^2(0,T;H)\bigr).
+u\in L^2(0,T;H).
 \]
 \end{itemize}
 
@@ -37,8 +37,8 @@ There exists a constant \(C_a>0\) such that
 |a(y,v)|
 \le
 C_a
-|y|_V
-|v|_V,
+\|y\|_V
+\|v\|_V,
 \qquad
 \forall y,v\in V.
 \]
@@ -57,9 +57,10 @@ There exists a constant \(C_G>0\) such that
 a(v,v)
 \ge
 \kappa
-|\nabla v|_{L^2(D)}^2
+\|\nabla v\|_{L^2(D)}^2
+-
 C_G
-|v|_{L^2(D)}^2,
+\|v\|_{L^2(D)}^2,
 \qquad
 \forall v\in V.
 \]
@@ -83,8 +84,8 @@ Applying the Cauchy--Schwarz and Young inequalities yields
 \right|
 \le
 C
-|v|*{L^2(D)}
-|\nabla v|*{L^2(D)}
+\|v\|*{L^2(D)}
+\|\nabla v\|*{L^2(D)}
 \]
 
 and therefore
@@ -93,14 +94,197 @@ and therefore
 a(v,v)
 \ge
 \kappa
-|\nabla v|_{L^2(D)}^2
+\|\nabla v\|_{L^2(D)}^2
 -
 C_G
-|v|_{L^2(D)}^2.
+\|v\|_{L^2(D)}^2.
 \]
 
 This concludes the proof.
 \end{proof}
+
+\subsection{Galerkin Approximation}
+
+Let
+
+\[
+\{\varphi_i\}_{i\ge 1}
+\]
+
+be an orthonormal basis of \(H\) formed by eigenfunctions of the Laplace 
+operator with homogeneous Dirichlet boundary conditions.
+
+For \(N\in\mathbb{N}\), we define the finite-dimensional space
+
+\[
+V_N
+=
+\operatorname{span}
+\{\varphi_1,\ldots,\varphi_N\}.
+\]
+
+We seek an approximate solution of the form
+
+\[
+y_N(t)
+=
+\sum_{i=1}^{N}
+g_i(t)\varphi_i.
+\]
+
+The Galerkin approximation is defined by
+
+\begin{equation}
+\bigl(dy_N(t),\varphi_j\bigr)_H
++
+a(y_N(t),\varphi_j),dt
+=
+(u(t),\varphi_j)_H,dt
++
+(\sigma\,dW_Q(t),\varphi_j)_H,
+\label{eq:galerkin}
+\end{equation}
+
+for all \(j=1,\ldots,N\).
+
+Since \eqref{eq:galerkin} is a finite-dimensional stochastic differential system with 
+locally Lipschitz coefficients, it admits a unique solution on \([0,T]\).
+
+\subsection{A Priori Estimates}
+
+To derive uniform estimates, we apply It\^o's formula to the functional
+
+\[
+\Phi(y_N)
+=
+|y_N|_H^2.
+\]
+
+Using It\^o's formula yields
+
+\begin{equation}
+\begin{aligned}
+d|y_N(t)|_H^2
+=
+&
+-2a(y_N(t),y_N(t)),dt
++
+2(u(t),y_N(t))_H,dt
+\\
+&
++
+\sigma^2
+\operatorname{Tr}(Q),dt
++
+2\sigma
+(y_N(t),dW_Q(t))_H.
+\end{aligned}
+\label{eq:ito_energy}
+\end{equation}
+
+Using the G{\aa}rding inequality, we obtain
+
+\[
+a(y_N,y_N)
+\ge
+\kappa
+|\nabla y_N|_{L^2(D)}^2
+-
+C_G
+\|y_N\|_H^2.
+\]
+
+Substituting this estimate into \eqref{eq:ito_energy} and integrating from \(0\) to \(t\) gives
+
+\begin{equation}
+\begin{aligned}
+\|y_N(t)\|_H^2
++
+2\kappa
+\int_0^t
+\|\nabla y_N(s)\|_{L^2(D)}^2,ds
+\le
+&
+\|y_0\|_H^2
+\\
+&
++
+C
+\int_0^t
+\|y_N(s)\|_H^2,ds
+\\
+&
++
+C
+\int_0^t
+\|u(s)\|_H^2,ds
+\
+&
++
+\sigma^2
+\operatorname{Tr}(Q)t
+\
+&
++
+2\sigma
+\int_0^t
+(y_N(s),dW_Q(s))_H.
+\end{aligned}
+\label{eq:energy_estimate}
+\end{equation}
+
+Taking expectations and using the martingale property of the stochastic integral, we obtain
+
+\begin{equation}
+\begin{aligned}
+\E\|y_N(t)\|_H^2
++
+2\kappa
+\E
+\int_0^t
+\|\nabla y_N(s)\|_{L^2(D)}^2,ds
+\le
+&
+\E\|y_0\|_H^2
+\\
+&
++
+C
+\int_0^t
+\E\|y_N(s)\|_H^2,ds
+\
+&
++
+C
+\E
+\int_0^t
+\|u(s)\|_H^2,ds
+\
+&
++
+\sigma^2
+\operatorname{Tr}(Q)t.
+\end{aligned}
+\label{eq:expected_estimate}
+\end{equation}
+
+Applying Gr\"onwall's inequality to \eqref{eq:expected_estimate} yields
+
+\begin{equation}
+\E
+\left[
+\sup_{0\le t\le T}
+\|y_N(t)\|_H^2
+\right]
++
+\E
+\int_0^T
+\|y_N(t)\|_V^2,dt
+\le C,
+\label{eq:uniform_bound}
+\end{equation}
+
+where the constant \(C\) is independent of \(N\).
 
 \subsection{Existence and Uniqueness}
 
@@ -132,22 +316,22 @@ Moreover, there exists a constant \(C>0\) independent of \(y\) such that
 \E
 \Bigl[
 \sup_{0\le t\le T}
-|y(t)|_H^2
+\|y(t)\|_H^2
 \Bigr]
 +
 \E
 \Bigl[
 \int_0^T
-|y(t)|_V^2,dt
+\|y(t)\|_V^2,dt
 \Bigr]
 \le
 C
 \left(
-\E|y_0|_H^2
+\E\|y_0\|_H^2
 +
 \E
 \int_0^T
-|u(t)|_H^2,dt
+\|u(t)\|_H^2,dt
 +
 \sigma^2 T
 \right).
@@ -158,7 +342,7 @@ C
 \begin{proof}
 The proof follows the classical Galerkin method.
 
-Let \({\varphi_i}_{i\ge1}\) be an orthonormal basis of \(H\) consisting of eigenfunctions of the 
+Let \(\{\varphi_i\}_{i\ge1}\) be an orthonormal basis of \(H\) consisting of eigenfunctions of the 
 Laplace operator. For each \(N\), we seek an approximation
 
 \[
@@ -174,7 +358,7 @@ finite-dimensional stochastic differential system.
 Applying It\^o's formula to
 
 \[
-|y_N(t)|_H^2
+\|y_N(t)\|_H^2
 \]
 
 and using the G{\aa}rding inequality gives an energy estimate of the form
@@ -183,13 +367,13 @@ and using the G{\aa}rding inequality gives an energy estimate of the form
 \E
 \Bigl[
 \sup_{0\le t\le T}
-|y_N(t)|_H^2
+\|y_N(t)\|_H^2
 \Bigr]
 +
 \E
 \Bigl[
 \int_0^T
-|y_N(t)|_V^2,dt
+\|y_N(t)\|_V^2,dt
 \Bigr]
 \le C.
 \]
@@ -197,7 +381,39 @@ and using the G{\aa}rding inequality gives an energy estimate of the form
 The estimate is uniform with respect to \(N\). Consequently, weak compactness arguments 
 allow the extraction of a subsequence converging to a limit \(y\).
 
-Passing to the limit in the weak formulation shows that \(y\) is a weak solution.
+Estimate \eqref{eq:uniform_bound} implies that the sequence \(\{y_N\}\) is bounded in
+
+\[
+L^2
+\bigl(
+\Omega;
+L^2(0,T;V)
+\bigr).
+\]
+
+By weak compactness, there exists a subsequence, still denoted by \(\{y_N\}\), and a limit
+
+\[
+y
+\in
+L^2
+\bigl(
+\Omega;
+L^2(0,T;V)
+\bigr)
+\]
+
+such that
+
+\[
+y_N
+\rightharpoonup
+y.
+\]
+
+Passing to the limit in the Galerkin formulation \eqref{eq:galerkin} shows that \(y\) 
+satisfies the weak formulation \eqref{eq:weak_form}. Hence \(y\) is a weak solution of the 
+stochastic state equation.
 
 To prove uniqueness, let \(y_1\) and \(y_2\) be two weak solutions and define
 

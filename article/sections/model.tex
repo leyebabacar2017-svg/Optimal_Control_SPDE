@@ -17,13 +17,29 @@ equipped with a filtration
 
 satisfying the usual conditions.
 
-Let
+Let \(H=L^2(D)\). We denote by
 
 \[
-W(t)
+W_Q(t)
 \]
 
-be a one-dimensional Wiener process defined on this probability space.
+a \(Q\)-Wiener process defined on the filtered probability space
+
+\[
+(\Omega,\mathcal F,\mathbb P,
+{\mathcal F_t}_{t\in[0,T]}),
+\]
+
+where
+
+\[
+Q:H\rightarrow H
+\]
+
+is a self-adjoint, positive, trace-class covariance operator.
+
+The process \(W_Q(t)\) models infinite-dimensional stochastic perturbations acting on the system.
+
 
 The state variable
 
@@ -53,7 +69,7 @@ dy
 \right)dt
 u\,dt
 +
-\sigma\, dW(t),
+\sigma\,dW_Q(t),
 \qquad
 (x,t)\in D\times(0,T),
 \]
@@ -89,12 +105,21 @@ Throughout this work, we assume that
 y_0\in L^2(\Omega;L^2(D)).
 \]
 
-The stochastic forcing term models uncertainties arising from environmental fluctuations, unresolved physical processes, or measurement errors.
+The stochastic forcing term models uncertainties arising from environmental fluctuations, unresolved physical 
+processes, or measurement errors.
+
+Throughout this work, we assume that the covariance operator \(Q\) satisfies
+
+\[
+\operatorname{Tr}(Q)<\infty.
+\]
+
+This assumption guarantees that the stochastic forcing term is well defined in the Hilbert space \(H\).
 
 For convenience, we rewrite the state equation in the abstract form
 
 \[
-dy + Ay,dt = Bu,dt + \sigma,dW(t),
+dy + Ay,dt = Bu,dt + \sigma\,dW_Q(t),
 \]
 
 where the differential operator
