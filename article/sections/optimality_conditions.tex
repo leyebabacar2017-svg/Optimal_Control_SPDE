@@ -1,0 +1,181 @@
+\section{First-Order Optimality Conditions}
+
+In this section, we derive the first-order necessary optimality conditions associated with the 
+stochastic optimal control problem introduced in Section~5.
+
+\subsection{Variation with Respect to the Control}
+
+Let \(u^\ast\in U_{ad}\) be an optimal control and let \(v\) be an admissible perturbation. 
+Differentiating the Lagrangian \eqref{eq:lagrangian} with respect to the control variable yields
+
+\begin{equation}
+D_u \mathcal L(y,u,p)(v)
+=
+\E
+\left[
+\int_0^T
+\left(
+\alpha u - p,
+v
+\right)_H
+dt
+\right].
+\label{eq:variation_control}
+\end{equation}
+
+A necessary condition for optimality is
+
+\[
+D_u \mathcal L(y^\ast,u^\ast,p^\ast)(v)=0,
+\qquad
+\forall v\in U_{ad}.
+\]
+
+Using \eqref{eq:variation_control}, we obtain
+
+\begin{equation}
+\E
+\left[
+\int_0^T
+\left(
+\alpha u^\ast-p^\ast,
+v
+\right)_H
+dt
+\right]
+=
+0,
+\qquad
+\forall v\in U_{ad}.
+\label{eq:optimality_variational}
+\end{equation}
+
+Since \(v\) is arbitrary, it follows that
+
+\begin{equation}
+\alpha u^\ast-p^\ast=0.
+\label{eq:control_relation}
+\end{equation}
+
+Consequently, the optimal control is given by
+
+\begin{equation}
+u^\ast
+=
+\frac{1}{\alpha}
+p^\ast.
+\label{eq:optimal_control}
+\end{equation}
+
+\subsection{Characterization of the Optimal Control}
+
+Equation \eqref{eq:optimal_control} shows that the optimal control is directly proportional to 
+the adjoint state. Therefore, once the adjoint variable has been computed, the optimal control 
+can be obtained explicitly.
+
+The parameter \(\alpha\) plays the role of a regularization coefficient. Large values of \(\alpha\) 
+penalize the control effort and lead to smaller control amplitudes, whereas small values of 
+\(\alpha\) allow stronger control actions.
+
+\subsection{Optimality System}
+
+Combining the state equation, the adjoint equation, and the optimality relation yields the complete 
+optimality system.
+
+The state equation is
+
+\begin{equation}
+dy
++
+\left(
+\mathbf b\cdot\nabla y
+-
+\kappa \Delta y
+\right)dt
+=
+u\,dt
++
+\sigma\,dW(t).
+\label{eq:state_system}
+\end{equation}
+
+The adjoint equation is
+
+\begin{equation}
+-\frac{\partial p}{\partial t}
+-\kappa \Delta p
+-\nabla\cdot(\mathbf b,p)
+=
+y-y_d.
+\label{eq:adjoint_system}
+\end{equation}
+
+The optimal control satisfies
+
+\begin{equation}
+u
+=
+\frac{1}{\alpha}p.
+\label{eq:control_system}
+\end{equation}
+
+Together with the boundary and initial/final conditions,
+
+\begin{equation}
+\left\{
+\begin{aligned}
+y &=0
+&&\text{on }
+\partial D\times(0,T),
+\
+p &=0
+&&\text{on }
+\partial D\times(0,T),
+\
+y(\cdot,0)&=y_0,
+\
+p(\cdot,T)&=0,
+\end{aligned}
+\right.
+\label{eq:boundary_conditions_system}
+\end{equation}
+
+Equations
+\eqref{eq:state_system},
+\eqref{eq:adjoint_system},
+and
+\eqref{eq:control_system}
+form a coupled forward--backward system.
+
+\subsection{Gradient Formula}
+
+The adjoint state also provides a convenient expression for the gradient of the cost functional. 
+Indeed,
+
+\begin{equation}
+\nabla J(u)
+=
+\alpha u-p.
+\label{eq:gradient}
+\end{equation}
+
+This expression is particularly useful for gradient-based optimization algorithms.
+
+For example, a gradient descent iteration reads
+
+\begin{equation}
+u^{k+1}
+=
+u^k
+-
+\rho
+\left(
+\alpha u^k-p^k
+\right),
+\label{eq:gradient_descent}
+\end{equation}
+
+where \(\rho>0\) denotes the step size.
+
+The optimality system derived above constitutes the basis for the numerical approximation 
+developed in the next section.

@@ -1,0 +1,232 @@
+\section{Adjoint Equation}
+
+To derive first-order optimality conditions, we introduce an adjoint variable associated with 
+the stochastic state equation. The adjoint equation plays a central role in the computation of 
+gradients and in the characterization of optimal controls.
+
+\subsection{Lagrangian Functional}
+
+Let \(y\) denote the state associated with a control \(u\). We introduce the Lagrangian functional
+
+\begin{equation}
+\begin{aligned}
+\mathcal L(y,u,p)
+=
+&
+\frac{1}{2}
+\E
+\left[
+\int_0^T
+|y-y_d|_H^2
+,dt
+\right]
++
+\frac{\alpha}{2}
+\E
+\left[
+\int_0^T
+|u|_H^2
+,dt
+\right]
+\
+&
++
+\E
+\left[
+\int_0^T
+\left(
+\frac{\partial y}{\partial t}
++
+Ay
+-
+u,
+, p
+\right)_H
+dt
+\right],
+\end{aligned}
+\label{eq:lagrangian}
+\end{equation}
+
+where \(p\) is the adjoint variable.
+
+For simplicity, the derivation is performed formally. A rigorous justification can be obtained 
+using standard arguments from infinite-dimensional optimization theory.
+
+\subsection{Variation with Respect to the State}
+
+Let \(z\) be an admissible perturbation of the state variable. Differentiating the Lagrangian 
+\eqref{eq:lagrangian} with respect to \(y\) in the direction \(z\) yields
+
+\begin{equation}
+\begin{aligned}
+D_y\mathcal L(y,u,p)(z)
+=
+&
+\E
+\left[
+\int_0^T
+(y-y_d,z)_H
+,dt
+\right]
+\
+&
++
+\E
+\left[
+\int_0^T
+\left(
+\frac{\partial z}{\partial t},
+p
+\right)_H
+dt
+\right]
+\
+&
++
+\E
+\left[
+\int_0^T
+(Az,p)_H
+,dt
+\right].
+\end{aligned}
+\label{eq:variation_y}
+\end{equation}
+
+We now integrate the time derivative term by parts:
+
+\begin{equation}
+\int_0^T
+\left(
+\frac{\partial z}{\partial t},
+p
+\right)_H
+dt
+=
+(z(T),p(T))_H
+-
+(z(0),p(0))_H
+-
+\int_0^T
+\left(
+z,
+\frac{\partial p}{\partial t}
+\right)_H
+dt.
+\label{eq:integration_parts}
+\end{equation}
+
+Since the initial condition is fixed, we have
+
+\[
+z(0)=0.
+\]
+
+To eliminate the terminal contribution, we impose the final condition
+
+\begin{equation}
+p(T)=0.
+\label{eq:adjoint_final}
+\end{equation}
+
+Substituting \eqref{eq:integration_parts} into \eqref{eq:variation_y} yields
+
+\begin{equation}
+\begin{aligned}
+D_y\mathcal L(y,u,p)(z)
+=
+\E
+\Bigg[
+\int_0^T
+\Big(
+y-y_d
+-
+\frac{\partial p}{\partial t}
++
+A^\ast p,
+,z
+\Big)_H
+dt
+\Bigg],
+\end{aligned}
+\label{eq:variation_final}
+\end{equation}
+
+where \(A^\ast\) denotes the adjoint operator of \(A\).
+
+Since \(z\) is arbitrary, we obtain the adjoint equation.
+
+\subsection{Adjoint Problem}
+
+The adjoint variable \(p\) satisfies the backward evolution equation
+
+\begin{equation}
+-\frac{\partial p}{\partial t}
++
+A^\ast p
+=
+y-y_d,
+\qquad
+\text{in }
+D\times(0,T),
+\label{eq:adjoint_abstract}
+\end{equation}
+
+together with the terminal condition
+
+\begin{equation}
+p(T)=0.
+\label{eq:adjoint_terminal}
+\end{equation}
+
+For the advection--diffusion operator
+
+\[
+Ay
+=
+-\kappa \Delta y
++
+\mathbf b\cdot\nabla y,
+\]
+
+the formal adjoint operator is given by
+
+\begin{equation}
+A^\ast p
+=
+-\kappa \Delta p
+-
+\nabla\cdot(\mathbf b\,p).
+\label{eq:adjoint_operator}
+\end{equation}
+
+Consequently, the adjoint equation takes the form
+
+\begin{equation}
+-\frac{\partial p}{\partial t}
+-\kappa \Delta p
+-\nabla\cdot(\mathbf b\,p)
+=
+y-y_d,
+\qquad
+\text{in }
+D\times(0,T).
+\label{eq:adjoint_pde}
+\end{equation}
+
+The homogeneous Dirichlet boundary condition is
+
+\begin{equation}
+p=0,
+\qquad
+\text{on }
+\partial D\times(0,T),
+\label{eq:adjoint_bc}
+\end{equation}
+
+while the terminal condition is given by \eqref{eq:adjoint_terminal}.
+
+The adjoint equation \eqref{eq:adjoint_pde} propagates information backward in time and provides 
+the sensitivity of the cost functional with respect to perturbations of the state variable. 
+It will be used in the next section to derive the first-order optimality conditions.

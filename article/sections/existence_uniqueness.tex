@@ -1,0 +1,219 @@
+\section{Existence and Uniqueness of Solutions}
+
+In this section, we establish the well-posedness of the stochastic advection--diffusion equation. 
+The proof relies on standard techniques from the theory of stochastic evolution equations, 
+including Galerkin approximations, energy estimates, and Grönwall's inequality.
+
+\subsection{Assumptions}
+
+Throughout this section, we assume that:
+
+\begin{itemize}
+\item the domain \(D\subset\mathbb{R}^d\) is bounded with Lipschitz boundary;
+\item the diffusion coefficient satisfies
+\[
+\kappa>0;
+\]
+\item the velocity field satisfies
+\[
+\mathbf b\in L^\infty(D)^d;
+\]
+\item the initial condition satisfies
+\[
+y_0\in L^2(\Omega;H);
+\]
+\item the control satisfies
+\[
+u\in L^2\bigl(\Omega;L^2(0,T;H)\bigr).
+\]
+\end{itemize}
+
+Under these assumptions, the bilinear form \(a(\cdot,\cdot)\) defined by \eqref{eq:bilinear_form} 
+is continuous on \(V\times V\).
+
+\begin{lemma}
+There exists a constant \(C_a>0\) such that
+\[
+|a(y,v)|
+\le
+C_a
+|y|_V
+|v|_V,
+\qquad
+\forall y,v\in V.
+\]
+\end{lemma}
+
+\begin{proof}
+The result follows from the Cauchy--Schwarz inequality and the boundedness of the velocity field 
+\(\mathbf b\).
+\end{proof}
+
+Moreover, the bilinear form satisfies the following G{\aa}rding inequality.
+
+\begin{lemma}[G{\aa}rding inequality]
+There exists a constant \(C_G>0\) such that
+\[
+a(v,v)
+\ge
+\kappa
+|\nabla v|_{L^2(D)}^2
+C_G
+|v|_{L^2(D)}^2,
+\qquad
+\forall v\in V.
+\]
+\end{lemma}
+
+\begin{proof}
+Using the definition of \(a(\cdot,\cdot)\), we obtain
+\[
+a(v,v)
+=
+\kappa
+\int_D |\nabla v|^2,dx
++
+\int_D (\mathbf b\cdot\nabla v),v,dx.
+\]
+
+Applying the Cauchy--Schwarz and Young inequalities yields
+\[
+\left|
+\int_D (\mathbf b\cdot\nabla v),v,dx
+\right|
+\le
+C
+|v|*{L^2(D)}
+|\nabla v|*{L^2(D)}
+\]
+
+and therefore
+
+\[
+a(v,v)
+\ge
+\kappa
+|\nabla v|_{L^2(D)}^2
+-
+C_G
+|v|_{L^2(D)}^2.
+\]
+
+This concludes the proof.
+\end{proof}
+
+\subsection{Existence and Uniqueness}
+
+We are now ready to state the main well-posedness result.
+
+\begin{theorem}
+Under the assumptions stated above, there exists a unique weak solution \(y\) of problem 
+\eqref{eq:state}--\eqref{eq:ic} satisfying
+
+\[
+y
+\in
+L^2
+\Bigl(
+\Omega;
+L^2(0,T;V)
+\Bigr)
+\cap
+L^2
+\Bigl(
+\Omega;
+C([0,T];H)
+\Bigr).
+\]
+
+Moreover, there exists a constant \(C>0\) independent of \(y\) such that
+
+\[
+\E
+\Bigl[
+\sup_{0\le t\le T}
+|y(t)|_H^2
+\Bigr]
++
+\E
+\Bigl[
+\int_0^T
+|y(t)|_V^2,dt
+\Bigr]
+\le
+C
+\left(
+\E|y_0|_H^2
++
+\E
+\int_0^T
+|u(t)|_H^2,dt
++
+\sigma^2 T
+\right).
+\]
+\label{thm:existence}
+\end{theorem}
+
+\begin{proof}
+The proof follows the classical Galerkin method.
+
+Let \({\varphi_i}_{i\ge1}\) be an orthonormal basis of \(H\) consisting of eigenfunctions of the 
+Laplace operator. For each \(N\), we seek an approximation
+
+\[
+y_N(t)
+=
+\sum_{i=1}^{N}
+g_i(t)\varphi_i.
+\]
+
+Substituting this expansion into the weak formulation \eqref{eq:weak_form} yields a 
+finite-dimensional stochastic differential system.
+
+Applying It\^o's formula to
+
+\[
+|y_N(t)|_H^2
+\]
+
+and using the G{\aa}rding inequality gives an energy estimate of the form
+
+\[
+\E
+\Bigl[
+\sup_{0\le t\le T}
+|y_N(t)|_H^2
+\Bigr]
++
+\E
+\Bigl[
+\int_0^T
+|y_N(t)|_V^2,dt
+\Bigr]
+\le C.
+\]
+
+The estimate is uniform with respect to \(N\). Consequently, weak compactness arguments 
+allow the extraction of a subsequence converging to a limit \(y\).
+
+Passing to the limit in the weak formulation shows that \(y\) is a weak solution.
+
+To prove uniqueness, let \(y_1\) and \(y_2\) be two weak solutions and define
+
+\[
+z=y_1-y_2.
+\]
+
+Then \(z\) satisfies the homogeneous equation. Applying It\^o's formula to \(|z(t)|_H^2\) 
+and using Grönwall's inequality yields
+
+\[
+z=0.
+\]
+
+Hence \(y_1=y_2\), which proves uniqueness.
+\end{proof}
+
+Theorem \ref{thm:existence} guarantees that the stochastic state equation is well posed. This 
+result constitutes the foundation for the optimal control problem introduced in the next section.

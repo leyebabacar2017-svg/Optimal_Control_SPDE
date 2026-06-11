@@ -1,0 +1,225 @@
+\section{Optimal Control Problem}
+
+Having established the well-posedness of the stochastic state equation, we now formulate the associated 
+optimal control problem.
+
+Let \(y_d\) denote a desired target state. The objective is to determine a control \(u\) that drives 
+the system as close as possible to \(y_d\) while keeping the control effort moderate.
+
+\subsection{Admissible Control Set}
+
+We define the admissible control set by
+
+\[
+U_{ad}
+=
+L^2
+\bigl(
+\Omega;
+L^2(0,T;H)
+\bigr).
+\]
+
+More generally, box constraints may be imposed on the control, leading to the admissible set
+
+\[
+U_{ad}
+=
+\left\{
+u\in L^2(\Omega;L^2(0,T;H))
+;:;
+u_a \le u \le u_b
+\ \text{a.e. in } D\times(0,T)
+\right\},
+\]
+
+where \(u_a\) and \(u_b\) are prescribed lower and upper bounds. In the present work, we 
+restrict ourselves to the unconstrained case.
+
+\subsection{Cost Functional}
+
+The performance of a control \(u\) is measured through the quadratic cost functional
+
+\begin{equation}
+J(u)
+=
+\frac{1}{2}
+\E
+\left[
+\int_0^T
+|y(t)-y_d(t)|_H^2
+,dt
+\right]
++
+\frac{\alpha}{2}
+\E
+\left[
+\int_0^T
+|u(t)|_H^2
+,dt
+\right],
+\label{eq:cost}
+\end{equation}
+
+where
+
+\begin{itemize}
+\item \(y\) is the solution of the state equation corresponding to the control \(u\);
+\item \(y_d\) is the desired state;
+\item \(\alpha>0\) is a regularization parameter.
+\end{itemize}
+
+The first term in \eqref{eq:cost} measures the discrepancy between the actual state and 
+the target state, while the second term penalizes excessive control effort.
+
+\subsection{Optimization Problem}
+
+The stochastic optimal control problem consists in finding
+
+\[
+u^\ast\in U_{ad}
+\]
+
+such that
+
+\begin{equation}
+J(u^\ast)
+=
+\min_{u\in U_{ad}}
+J(u).
+\label{eq:optimal_problem}
+\end{equation}
+
+The pair
+
+\[
+(y^\ast,u^\ast)
+\]
+
+satisfying \eqref{eq:optimal_problem} is called an optimal state-control pair.
+
+\subsection{Existence of an Optimal Control}
+
+We now establish the existence of at least one optimal control.
+
+\begin{theorem}
+Assume that
+
+\[
+y_d
+\in
+L^2
+\bigl(
+\Omega;
+L^2(0,T;H)
+\bigr).
+\]
+
+Then the optimization problem \eqref{eq:optimal_problem} admits at least one solution
+
+\[
+u^\ast\in U_{ad}.
+\]
+\label{thm:optimal_control}
+\end{theorem}
+
+\begin{proof}
+
+Let
+
+\[
+{u_n}*{n\ge1}
+\subset U*{ad}
+\]
+
+be a minimizing sequence such that
+
+\[
+J(u_n)
+\longrightarrow
+\inf_{u\in U_{ad}} J(u).
+\]
+
+Since the functional (J) contains the coercive term
+
+\[
+\frac{\alpha}{2}
+\E
+\int_0^T
+|u_n(t)|_H^2,dt,
+\]
+
+the sequence \({u_n}\) is bounded in
+
+\[
+L^2
+\bigl(
+\Omega;
+L^2(0,T;H)
+\bigr).
+\]
+
+Consequently, there exists a subsequence, still denoted by \({u_n}\), and an element
+
+\[
+u^\ast
+\in
+U_{ad}
+\]
+
+such that
+
+\[
+u_n
+\rightharpoonup
+u^\ast
+\]
+
+weakly in
+
+\[
+L^2
+\bigl(
+\Omega;
+L^2(0,T;H)
+\bigr).
+\]
+
+Let \(y_n\) denote the corresponding sequence of state solutions. The a priori estimates 
+established in Theorem~\ref{thm:existence} imply that \({y_n}\) is bounded in
+
+\[
+L^2
+\bigl(
+\Omega;
+L^2(0,T;V)
+\bigr).
+\]
+
+By weak compactness, there exists a subsequence converging to a limit \(y^\ast\), which 
+is the state associated with \(u^\ast\).
+
+Since the functional \(J\) is convex and weakly lower semicontinuous, we obtain
+
+\[
+J(u^\ast)
+\le
+\liminf_{n\to\infty}
+J(u_n).
+\]
+
+Therefore,
+
+\[
+J(u^\ast)
+=
+\inf_{u\in U_{ad}}
+J(u),
+\]
+
+which proves the existence of an optimal control.
+\end{proof}
+
+The existence result established above guarantees that the optimization problem is 
+mathematically well posed. In the next section, we derive the adjoint equation and 
+the first-order optimality conditions characterizing optimal solutions.

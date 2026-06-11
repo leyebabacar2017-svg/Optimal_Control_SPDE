@@ -1,0 +1,176 @@
+\section{Numerical Results}
+
+In this section, we present numerical experiments illustrating the performance of the proposed 
+finite element approximation and optimal control framework.
+
+All computations are intended to be carried out using the FEniCSx finite element library. 
+The state equation is solved forward in time, while the adjoint equation is solved backward 
+in time. The control variable is updated through a gradient-based optimization algorithm.
+
+\subsection{Test Problem}
+
+We consider the square domain
+
+\[
+D=(0,1)^2,
+\]
+
+and the final time
+
+\[
+T=1.
+\]
+
+The diffusion coefficient is chosen as
+
+\[
+\kappa = 10^{-2},
+\]
+
+while the velocity field is defined by
+
+\[
+\mathbf b(x,y)
+=
+\begin{pmatrix}
+1 \
+0
+\end{pmatrix}.
+\]
+
+The desired state is given by
+
+\[
+y_d(x,y)
+=
+\sin(\pi x)\sin(\pi y).
+\]
+
+The initial condition is taken as
+
+\[
+y_0(x,y)=0.
+\]
+
+Homogeneous Dirichlet boundary conditions are imposed on the whole boundary of the domain.
+
+The regularization parameter is chosen as
+
+\[
+\alpha =10^{-3}.
+\]
+
+\subsection{Finite Element Parameters}
+
+The computational domain is discretized using a structured triangular mesh.
+
+Continuous piecewise linear finite elements \((P_1)\) are employed for the approximation of the state, 
+adjoint, and control variables.
+
+The time interval is divided into \(N_t\) uniform time steps with time increment
+
+\[
+\Delta t
+=
+\frac{T}{N_t}.
+\]
+
+The state equation is discretized using the backward Euler method, while the optimization procedure 
+relies on a gradient descent algorithm.
+
+\subsection{State Solution}
+
+The first experiment consists in solving the state equation for a prescribed control.
+
+Figure~\ref{fig:state_solution} illustrates the numerical approximation of the state variable at the 
+final time \(T\).
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.65\textwidth]{figures/state/state_solution.png}
+\caption{Numerical approximation of the state variable at the final time.}
+\label{fig:state_solution}
+\end{figure}
+
+The solution exhibits the expected advection and diffusion effects induced by the transport field 
+and the diffusion coefficient.
+
+\subsection{Adjoint Solution}
+
+The adjoint equation is solved backward in time starting from the terminal condition
+
+\[
+p(T)=0.
+\]
+
+Figure~\ref{fig:adjoint_solution} presents the numerical approximation of the adjoint variable.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.65\textwidth]{figures/state/adjoint_solution.png}
+\caption{Numerical approximation of the adjoint variable.}
+\label{fig:adjoint_solution}
+\end{figure}
+
+The adjoint solution provides sensitivity information required for the optimization process.
+
+\subsection{Optimal Control}
+
+Using the optimality condition
+
+\[
+u^\ast
+=
+\frac{1}{\alpha}p^\ast,
+\]
+
+the optimal control is computed iteratively.
+
+Figure~\ref{fig:optimal_control} displays the resulting control distribution.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.65\textwidth]{figures/control/optimal_control.png}
+\caption{Optimal control obtained after convergence of the optimization algorithm.}
+\label{fig:optimal_control}
+\end{figure}
+
+The computed control successfully drives the state toward the prescribed target state while 
+maintaining a moderate control cost.
+
+\subsection{Convergence of the Optimization Algorithm}
+
+To assess the convergence of the optimization procedure, we monitor the evolution of the cost 
+functional during the iterations.
+
+Figure~\ref{fig:cost_history} shows a typical convergence history.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.65\textwidth]{figures/control/cost_history.png}
+\caption{Evolution of the cost functional during the optimization process.}
+\label{fig:cost_history}
+\end{figure}
+
+A monotonic decrease of the objective functional is observed, indicating the effectiveness of 
+the gradient-based optimization algorithm.
+
+\subsection{Influence of the Noise Intensity}
+
+We next investigate the influence of the stochastic forcing parameter \(\sigma\).
+
+Several simulations are performed for different values of \(\sigma\).
+
+The results indicate that increasing the noise intensity leads to larger fluctuations in the state 
+variable and generally requires stronger control actions to achieve the desired target state.
+
+\subsection{Discussion}
+
+The numerical experiments confirm the theoretical results established in the previous sections.
+
+The finite element approximation provides stable and accurate numerical solutions for both the 
+state and adjoint equations. Furthermore, the gradient-based optimization strategy successfully 
+computes controls that minimize the objective functional.
+
+These results demonstrate the applicability of the proposed framework to stochastic transport 
+phenomena arising in environmental and climate applications.

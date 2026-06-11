@@ -1,0 +1,125 @@
+\section{Mathematical Model}
+
+Let \(D\subset\mathbb{R}^d\), \(d=1,2,3\), be a bounded domain with Lipschitz boundary \(\partial D\). 
+Let \(T>0\) be a fixed final time.
+
+We consider a complete probability space
+
+\[
+(\Omega,\mathcal{F},\mathbb{P})
+\]
+
+equipped with a filtration
+
+\[
+{\mathcal{F}*t}*{t\in[0,T]}
+\]
+
+satisfying the usual conditions.
+
+Let
+
+\[
+W(t)
+\]
+
+be a one-dimensional Wiener process defined on this probability space.
+
+The state variable
+
+\[
+y=y(x,t,\omega)
+\]
+
+represents the concentration of a transported quantity, such as a pollutant, temperature, or chemical species.
+
+The control variable
+
+\[
+u=u(x,t)
+\]
+
+acts as a distributed source term.
+
+The stochastic advection--diffusion equation under consideration is
+
+\[
+dy
++
+\left(
+\mathbf{b}\cdot\nabla y
+-
+\kappa \Delta y
+\right)dt
+u\,dt
++
+\sigma\, dW(t),
+\qquad
+(x,t)\in D\times(0,T),
+\]
+
+where
+
+\begin{itemize}
+\item \(\mathbf{b}(x)\in\mathbb{R}^d\) denotes a prescribed velocity field,
+\item \(\kappa>0\) is the diffusion coefficient,
+\item \(u\) is the control function,
+\item \(\sigma\ge 0\) is the noise intensity.
+\end{itemize}
+
+The equation is supplemented with homogeneous Dirichlet boundary conditions
+
+\[
+y=0,
+\qquad
+(x,t)\in \partial D\times(0,T),
+\]
+
+and the initial condition
+
+\[
+y(x,0)=y_0(x),
+\qquad
+x\in D.
+\]
+
+Throughout this work, we assume that
+
+\[
+y_0\in L^2(\Omega;L^2(D)).
+\]
+
+The stochastic forcing term models uncertainties arising from environmental fluctuations, unresolved physical processes, or measurement errors.
+
+For convenience, we rewrite the state equation in the abstract form
+
+\[
+dy + Ay,dt = Bu,dt + \sigma,dW(t),
+\]
+
+where the differential operator
+
+\[
+A:H_0^1(D)\rightarrow H^{-1}(D)
+\]
+
+is defined by
+
+\[
+Ay
+=
+-\kappa \Delta y
++
+\mathbf{b}\cdot\nabla y,
+\]
+
+and
+
+\[
+B=I
+\]
+
+is the identity control operator.
+
+The analysis developed in the following sections will rely on the variational formulation of this 
+stochastic evolution equation.

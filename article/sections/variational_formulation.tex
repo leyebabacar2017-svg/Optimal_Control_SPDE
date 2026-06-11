@@ -1,0 +1,180 @@
+\section{Variational Formulation}
+
+In this section, we derive a weak formulation of the stochastic advection--diffusion problem introduced in 
+Section~2. This formulation constitutes the basis for the well-posedness analysis and the finite element 
+approximation developed later in the paper.
+
+Let
+
+\[
+H=L^2(D)
+\]
+
+equipped with the inner product
+
+\[
+(y,v)_H
+=
+\int_D yv,dx,
+\]
+
+and the associated norm
+
+\[
+|y|_H
+=
+\left(
+\int_D |y|^2,dx
+\right)^{1/2}.
+\]
+
+We introduce the Sobolev space
+
+\[
+V=H_0^1(D),
+\]
+
+endowed with the norm
+
+\[
+|v|_V
+=
+|\nabla v|_{L^2(D)}.
+\]
+
+Since \(D\) is bounded, the Poincaré inequality implies that this norm is equivalent to the standard 
+\(H^1(D)\)-norm.
+
+The spaces \(V\), \(H\), and the dual space \(V'\) form the Gelfand triple
+
+\[
+V
+\hookrightarrow
+H
+\hookrightarrow
+V',
+\]
+
+where the embeddings are continuous and dense.
+
+To derive the weak formulation, we multiply equation \eqref{eq:state} by a test function \(v\in V\) 
+and integrate over the spatial domain (D). Using Green's formula together with the homogeneous Dirichlet boundary condition \eqref{eq:bc}, we obtain
+
+\[
+(dy,v)_H
++
+a(y,v),dt
+=
+(u,v)_H,dt
++
+(\sigma,dW(t),v)_H,
+\]
+
+where the bilinear form \(a:V\times V\rightarrow\mathbb{R}\) is defined by
+
+\begin{equation}
+a(y,v)
+=
+\kappa
+\int_D
+\nabla y\cdot\nabla v,dx
++
+\int_D
+(\mathbf b\cdot\nabla y),v,dx.
+\label{eq:bilinear_form}
+\end{equation}
+
+The first term in \eqref{eq:bilinear_form} corresponds to diffusion, whereas the second term represents 
+the advection mechanism.
+
+Throughout this work, we assume that
+
+\[
+\mathbf b
+\in
+L^\infty(D)^d.
+\]
+
+Under this assumption, the bilinear form \(a(\cdot,\cdot)\) is continuous on \(V\times V\). Indeed, there 
+exists a constant (C>0) such that
+
+\[
+|a(y,v)|
+\le
+C
+|y|_V
+|v|_V,
+\qquad
+\forall y,v\in V.
+\]
+
+Moreover, owing to the positivity of the diffusion coefficient \(\kappa\), the bilinear form satisfies a 
+G{\aa}rding-type inequality
+
+\begin{equation}
+a(v,v)
+\ge
+\kappa
+|\nabla v|_{L^2(D)}^2
+C
+|v|_{L^2(D)}^2,
+\qquad
+\forall v\in V,
+\label{eq:garding}
+\end{equation}
+
+for some constant (C>0).
+
+We are now in a position to define the notion of weak solution.
+
+\begin{definition}
+A stochastic process
+
+\[
+y:
+[0,T]\times\Omega
+\rightarrow
+V
+\]
+
+is called a weak solution of problem
+\eqref{eq:state}--\eqref{eq:ic}
+if
+
+\[
+y
+\in
+L^2
+\bigl(
+\Omega;
+L^2(0,T;V)
+\bigr),
+\]
+
+\(y\) is \(\mathcal F_t\)-adapted, and for every test function \(v\in V\),
+
+\begin{equation}
+\begin{aligned}
+(y(t),v)_H
+&=
+(y_0,v)_H
+-
+\int_0^t
+a(y(s),v)\,ds
++
+\int_0^t
+(u(s),v)_H\,ds
+\\
+&\quad
++
+\int_0^t
+(\sigma\,dW(s),v)_H .
+\end{aligned}
+\label{eq:weak_form}
+\end{equation}
+
+holds almost surely for all \(t\in[0,T]\).
+\end{definition}
+
+The weak formulation \eqref{eq:weak_form} will serve as the starting point for the 
+existence and uniqueness analysis presented in the next section.

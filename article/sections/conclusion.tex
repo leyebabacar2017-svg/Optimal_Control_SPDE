@@ -1,0 +1,34 @@
+\section{Conclusion and Perspectives}
+
+In this paper, we have investigated an optimal control problem governed by a stochastic 
+advection--diffusion equation driven by additive noise.
+
+We first introduced the mathematical model and derived its variational formulation within 
+an appropriate Hilbert space framework. Under suitable assumptions on the diffusion coefficient, 
+the velocity field, the control variable, and the initial condition, we established the 
+existence and uniqueness of weak solutions to the stochastic state equation.
+
+The optimal control problem was then formulated through a quadratic tracking-type cost 
+functional. Using standard tools from the calculus of variations and functional analysis, 
+we proved the existence of optimal controls. The derivation of the adjoint equation enabled 
+us to obtain first-order necessary optimality conditions and to characterize the optimal control 
+through an optimality system coupling the state equation, the adjoint equation, and the control 
+law.
+
+A finite element discretization based on continuous piecewise linear elements was proposed for 
+the numerical approximation of the optimality system. The resulting discrete formulation provides 
+a practical framework for implementation within the FEniCSx environment. Numerical experiments 
+were presented to illustrate the theoretical developments and to demonstrate the effectiveness 
+of the proposed optimization strategy.
+
+The methodology developed in this work is applicable to a wide range of stochastic transport 
+phenomena arising in environmental sciences, groundwater management, atmospheric pollution 
+control, and climate modeling.
+
+Several extensions of the present work may be considered. A first direction consists in studying 
+stochastic advection--diffusion equations driven by multiplicative noise. Another interesting 
+perspective concerns the analysis of control constraints and sparsity-promoting cost functionals. 
+From the numerical viewpoint, future work will focus on a rigorous error analysis of the finite 
+element approximation and on the development of efficient parallel algorithms for large-scale 
+simulations. Finally, the extension of the proposed framework to nonlinear stochastic transport 
+equations and coupled multiphysics systems constitutes a promising research direction.

@@ -1,0 +1,65 @@
+\section{Introduction}
+
+%--------------------------------------------------
+% 1. Contexte général
+%--------------------------------------------------
+
+Many physical, environmental and climate systems are subject to uncertainty arising from incomplete 
+information, measurement errors, and random external perturbations. Such uncertainties can be 
+incorporated into mathematical models through stochastic partial differential equations (SPDEs).
+
+%--------------------------------------------------
+% 2. Revue de littérature
+%--------------------------------------------------
+
+The mathematical analysis of stochastic partial differential equations has received considerable 
+attention over the last decades; see, for example, \cite{DaPrato2014,Flandoli1995,Lord2014}. Optimal 
+control problems governed by partial differential equations constitute a classical research area in 
+applied mathematics and engineering \cite{Lions1971,Hinze2009,Gunzburger2003}. The combination of 
+stochastic dynamics and PDE-constrained optimization has generated a rapidly growing field motivated 
+by applications in environmental sciences, fluid mechanics, groundwater management, and climate modeling.
+
+%--------------------------------------------------
+% 3. Motivation de l'étude
+%--------------------------------------------------
+
+Among the most important models in environmental sciences are advection--diffusion equations, which 
+describe the transport of pollutants, heat, humidity, and chemical species in fluids and porous media. 
+When uncertainties are taken into account, stochastic advection--diffusion equations provide a more 
+realistic description of the underlying physical processes.
+
+Optimal control of SPDEs has attracted significant attention due to its numerous applications in
+engineering, environmental management, and climate science.
+
+The purpose of this work is to study an optimal control problem governed by a stochastic 
+advection--diffusion equation driven by additive noise. We establish the well-posedness of the state 
+equation, prove the existence of optimal controls, derive the corresponding adjoint equation, and 
+obtain first-order optimality conditions. A finite element approximation is also proposed and implemented 
+using FEniCSx.
+
+%--------------------------------------------------
+% 4. Contributions
+%--------------------------------------------------
+
+The main contributions of this work can be summarized as follows:
+
+\begin{itemize}
+\item We establish a variational formulation for a stochastic advection--diffusion equation driven 
+by additive noise.
+\item We prove the existence and uniqueness of weak solutions.
+\item We formulate and analyze an optimal control problem governed by the stochastic state equation.
+\item We derive the corresponding adjoint equation and first-order optimality conditions.
+\item We propose a finite element discretization suitable for implementation in FEniCSx.
+\item We illustrate the theoretical developments through numerical experiments relevant to environmental 
+and climate applications.
+\end{itemize}
+
+%--------------------------------------------------
+% 5. Organisation
+%--------------------------------------------------
+
+The remainder of the paper is organized as follows. Section 2 introduces the mathematical model. 
+Section 3 presents the variational formulation. Existence and uniqueness results are established 
+in Section 4. The optimal control problem is formulated in Section 5. The adjoint equation and 
+optimality conditions are derived in Sections 6 and 7. A finite element discretization is presented 
+in Section 8. Numerical experiments are reported in Section 9, followed by concluding remarks.

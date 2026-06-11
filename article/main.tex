@@ -1,0 +1,140 @@
+\documentclass[11pt,a4paper]{article}
+
+%==================================================
+% Packages
+%==================================================
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{mathrsfs}
+\usepackage{bm}
+
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{subcaption}
+
+\usepackage{booktabs}
+\usepackage{multirow}
+
+\usepackage{geometry}
+\geometry{margin=2.5cm}
+
+\usepackage{setspace}
+\onehalfspacing
+
+\usepackage{xcolor}
+\usepackage{hyperref}
+
+\hypersetup{
+colorlinks=true,
+linkcolor=blue,
+citecolor=blue,
+urlcolor=blue
+}
+
+%==================================================
+% Theorem environments
+%==================================================
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+
+%==================================================
+% Mathematical notation
+%==================================================
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Prob}{\mathbb{P}}
+
+\newcommand{\Om}{\Omega}
+\newcommand{\p}{\partial}
+
+\newcommand{\norm}[1]{\left|#1\right|}
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\inner}[2]{\left(#1,#2\right)}
+
+%==================================================
+% Title
+%==================================================
+
+\title{
+Optimal Control of a Stochastic Advection--Diffusion Equation
+}
+
+\author{
+Babacar LEYE \and
+Malicki ZOROM \and
+Mamadou DIOP
+}
+
+\date{\today}
+
+%==================================================
+\begin{document}
+%==================================================
+
+\maketitle
+
+\begin{abstract}
+
+This paper investigates an optimal control problem governed by a stochastic advection--diffusion equation driven by additive noise. We establish the variational formulation of the stochastic state equation and prove the existence and uniqueness of weak solutions. The existence of optimal controls is obtained using variational arguments. First-order optimality conditions are derived through an adjoint equation. A finite element discretization is proposed and numerical experiments are presented to illustrate the theoretical results.
+
+\end{abstract}
+
+\textbf{Keywords:}
+Stochastic partial differential equations,
+Optimal control,
+Advection--diffusion equation,
+Adjoint equation,
+Finite element method,
+FEniCSx.
+
+\bigskip
+
+\tableofcontents
+
+\newpage
+
+%==================================================
+% Sections
+%==================================================
+
+\input{sections/introduction}
+
+\input{sections/model}
+
+\input{sections/variational_formulation}
+
+\input{sections/existence_uniqueness}
+
+\input{sections/optimal_control}
+
+\input{sections/adjoint_equation}
+
+\input{sections/optimality_conditions}
+
+\input{sections/fem_discretization}
+
+\input{sections/numerical_results}
+
+\input{sections/conclusion}
+
+%==================================================
+% Bibliography
+%==================================================
+
+\bibliographystyle{plain}
+\bibliography{bib/references}
+
+%==================================================
+\end{document}

@@ -1,0 +1,251 @@
+\section{Finite Element Discretization}
+
+In this section, we present a finite element approximation of the optimality system derived in the 
+previous sections.
+
+\subsection{Spatial Discretization}
+
+Let \(\mathcal T_h\) be a conforming triangulation of the domain \(D\) with mesh size \(h\).
+
+We introduce the finite element space
+
+\[
+V_h
+=
+\left\{
+v_h\in C^0(\overline D)
+;:;
+v_h|_K \in \mathbb P_1(K),
+\quad
+\forall K\in\mathcal T_h,
+\quad
+v_h=0 \text{ on } \partial D
+\right\}.
+\]
+
+Let
+
+\[
+{\varphi_i}_{i=1}^{N}
+\]
+
+be a basis of \(V_h\).
+
+The discrete state, adjoint, and control variables are approximated by
+
+\[
+y_h(x,t)
+=
+\sum_{i=1}^{N}
+Y_i(t)\varphi_i(x),
+\]
+
+\[
+p_h(x,t)
+=
+\sum_{i=1}^{N}
+P_i(t)\varphi_i(x),
+\]
+
+and
+
+\[
+u_h(x,t)
+=
+\sum_{i=1}^{N}
+U_i(t)\varphi_i(x).
+\]
+
+\subsection{Discrete Variational Formulation}
+
+The finite element approximation of the state equation reads:
+
+Find \(y_h(t)\in V_h\) such that
+
+\begin{equation}
+\left(
+\frac{\partial y_h}{\partial t},
+v_h
+\right)
++
+a(y_h,v_h)
+=
+(u_h,v_h),
+\qquad
+\forall v_h\in V_h.
+\label{eq:state_discrete}
+\end{equation}
+
+Similarly, the adjoint problem becomes:
+
+Find \(p_h(t)\in V_h\) such that
+
+\begin{equation}
+\left(
+-\frac{\partial p_h}{\partial t},
+v_h
+\right)
++
+a^\ast(p_h,v_h)
+=
+(y_h-y_d,v_h),
+\qquad
+\forall v_h\in V_h.
+\label{eq:adjoint_discrete}
+\end{equation}
+
+\subsection{Finite Element Matrices}
+
+Choosing the basis functions as test functions leads to the matrix formulation.
+
+The mass matrix is defined by
+
+\begin{equation}
+M_{ij}
+=
+\int_D
+\varphi_i \varphi_j
+\,dx.
+\label{eq:mass_matrix}
+\end{equation}
+
+The diffusion matrix is
+
+\begin{equation}
+K_{ij}
+=
+\kappa
+\int_D
+\nabla\varphi_i\cdot\nabla\varphi_j
+\,dx.
+\label{eq:stiffness_matrix}
+\end{equation}
+
+The advection matrix is
+
+\begin{equation}
+C_{ij}
+=
+\int_D
+(\mathbf b\cdot\nabla\varphi_j)
+\varphi_i
+\,dx.
+\label{eq:advection_matrix}
+\end{equation}
+
+The semi-discrete state system can therefore be written as
+
+\begin{equation}
+M\frac{dY}{dt}
++
+(K+C)Y
+=
+MU.
+\label{eq:semi_discrete_state}
+\end{equation}
+
+Similarly, the semi-discrete adjoint system is
+
+\begin{equation}
+-M\frac{dP}{dt}
++
+(K+C^\ast)P
+=
+M(Y-Y_d).
+\label{eq:semi_discrete_adjoint}
+\end{equation}
+
+\subsection{Time Discretization}
+
+Let
+
+\[
+0=t_0<t_1<\cdots<t_N=T
+\]
+
+be a uniform partition of the time interval with time step
+
+\[
+\Delta t
+=
+\frac{T}{N}.
+\]
+
+Using the backward Euler scheme, the state equation becomes
+
+\begin{equation}
+\left(
+\frac{M}{\Delta t}
++
+K+C
+\right)
+Y^{n+1}
+=
+\frac{M}{\Delta t}Y^n
++
+MU^{n+1}.
+\label{eq:euler_state}
+\end{equation}
+
+The adjoint equation is solved backward in time:
+
+\begin{equation}
+\left(
+\frac{M}{\Delta t}
++
+K+C^\ast
+\right)
+P^{n}
+=
+\frac{M}{\Delta t}P^{n+1}
++
+M(Y^n-Y_d^n).
+\label{eq:euler_adjoint}
+\end{equation}
+
+\subsection{Discrete Optimality Condition}
+
+The discrete counterpart of the optimality condition is
+
+\begin{equation}
+U^n
+=
+\frac{1}{\alpha}
+P^n.
+\label{eq:discrete_control}
+\end{equation}
+
+Consequently, the optimality system can be solved iteratively through the following procedure:
+
+\begin{enumerate}
+\item Initialize the control \(U^0\).
+\item Solve the state equation forward in time.
+\item Solve the adjoint equation backward in time.
+\item Compute the gradient
+\[
+G^n
+=
+\alpha U^n-P^n.
+\]
+\item Update the control using a gradient-based algorithm.
+\item Repeat until convergence.
+\end{enumerate}
+
+\subsection{Implementation in FEniCSx}
+
+The finite element formulation presented above is well suited for implementation in FEniCSx.
+
+The numerical implementation involves:
+
+\begin{itemize}
+\item mesh generation;
+\item construction of the finite element space \(V_h\);
+\item assembly of the mass, diffusion, and advection matrices;
+\item solution of the forward state equation;
+\item solution of the backward adjoint equation;
+\item gradient computation and control update.
+\end{itemize}
+
+The resulting framework enables the numerical approximation of optimal control problems governed 
+by stochastic advection--diffusion equations and serves as the basis for the numerical experiments 
+presented in the next section.
